@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "SBTCharacterBase.generated.h"
 
+class UCameraComponent;
+class USpringArmComponent;
+
 UCLASS()
 class SADBUTTRUE_API ASBTCharacterBase : public ACharacter
 {
@@ -16,6 +19,13 @@ public:
 	ASBTCharacterBase();
 
 protected:
+	
+	//UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Camera")
+	//USpringArmComponent* SpringArm;
+
+	//UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Camera")
+	//UCameraComponent* Camera;
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
