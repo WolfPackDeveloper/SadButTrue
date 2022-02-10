@@ -4,8 +4,9 @@
 #include "Characters/SBTCharacterPlayer.h"
 
 #include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include <GameFramework/Character.h>
+//#include <GameFramework/Character.h>
 
 ASBTCharacterPlayer::ASBTCharacterPlayer()
 {
@@ -32,22 +33,35 @@ void ASBTCharacterPlayer::BeginPlay()
 
 void ASBTCharacterPlayer::MoveForward(float AxisValue)
 {
+	FRotator ControlRotation = GetControlRotation();
+	ControlRotation.Pitch = 0.0f;
+	ControlRotation.Roll = 0.0f;
+	
+	//FVector Direction = FRotationMatrix(ControlRotation).GetUnitAxis(EAxis::X);
+	//AddMovementInput(Direction, AxisValue);
 
+	AddMovementInput(ControlRotation.Vector(), AxisValue);
 }
 
 void ASBTCharacterPlayer::MoveRight(float AxisValue)
 {
+	FRotator ControlRotation = GetControlRotation();
+	ControlRotation.Pitch = 0.0f;
+	ControlRotation.Roll = 0.0f;
 
+	FVector RightVector = FRotationMatrix(ControlRotation).GetScaledAxis(EAxis::Y);
+
+	AddMovementInput(RightVector, AxisValue);
 }
 
 void ASBTCharacterPlayer::LookUpRate(float AxisValue)
 {
-
+	AddControllerPitchInput(AxisValue * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 }
 
 void ASBTCharacterPlayer::TurnRightRate(float AxisValue)
 {
-
+	AddControllerYawInput(AxisValue * BaseTurnRate * GetWorld()->GetDeltaSeconds());
 }
 
 void ASBTCharacterPlayer::Tick(float DeltaTime)
@@ -59,5 +73,12 @@ void ASBTCharacterPlayer::SetupPlayerInputComponent(class UInputComponent* Playe
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	PlayerInputComponent->BindAxis("MoveForvard", this, &ASBTCharacterPlayer::MoveForward);
+	PlayerInputComponent->BindAxis("MoveRight", this, &ASBTCharacterPlayer::MoveRight);
+	PlayerInputComponent->BindAxis("LookUp", this, &ACharacter::AddControllerPitchInput);
+	PlayerInputComponent->BindAxis("TurnRight", this, &ACharacter::AddControllerYawInput);
+	//Gamepad turning
+	PlayerInputComponent->BindAxis("LookUpRate", this, &ASBTCharacterPlayer::LookUpRate);
+	PlayerInputComponent->BindAxis("TurnRightRate", this, &ASBTCharacterPlayer::TurnRightRate);
 
 }
