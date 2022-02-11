@@ -11,6 +11,11 @@ ASBTCharacterBase::ASBTCharacterBase()
 
 }
 
+UAbilitySystemComponent* ASBTCharacterBase::GetAbilitySystemComponent() const
+{
+	return AbilitySystemComponent;
+}
+
 // Called when the game starts or when spawned
 void ASBTCharacterBase::BeginPlay()
 {

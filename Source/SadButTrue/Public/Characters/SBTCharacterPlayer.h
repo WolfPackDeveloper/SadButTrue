@@ -6,6 +6,15 @@
 #include "Core/SBTCharacterBase.h"
 #include "SBTCharacterPlayer.generated.h"
 
+//UENUM(BlueprintType)
+//enum class ESBTAbilityInputID : uibt8
+//{
+//	None,
+//	Confirm,
+//	Cancel,
+//	Attack
+//};
+
 /**
  * 
  */
@@ -26,6 +35,10 @@ protected:
 
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* Camera;
+
+	// Для ровного поворота с джойстика. Пока оставим так.
+	UPROPERTY(EditDefaultsOnly, Category = "Movement")
+	float BaseTurnRate = 70.0f;
 
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
