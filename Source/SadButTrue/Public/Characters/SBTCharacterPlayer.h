@@ -6,6 +6,15 @@
 #include "Core/SBTCharacterBase.h"
 #include "SBTCharacterPlayer.generated.h"
 
+//UENUM(BlueprintType)
+//enum class ESBTAbilityInputID : uibt8
+//{
+//	None,
+//	Confirm,
+//	Cancel,
+//	Attack
+//};
+
 /**
  * 
  */
